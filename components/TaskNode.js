@@ -1,10 +1,38 @@
 'use client';
 
-export default function TaskNode({ task, onMove }) {
+import { memo } from 'react';
+import PropTypes from 'prop-types';
+
+/**
+ * TaskNode Component
+ * Represents a single draggable, keyboard-accessible task item on the board.
+ * Optimized with React.memo to prevent re-renders when other tasks are modified.
+ * 
+ * @param {Object} props - Component props
+ * @param {Object} props.task - The task data object
+ * @param {string} props.task.id - Unique ID
+ * @param {string} props.task.title - Task title
+ * @param {string} props.task.description - Task description
+ * @param {string} props.task.status - Current column status
+ * @param {string} [props.task.effort] - Estimated effort level
+ * @param {string} [props.task.assignee] - Assigned team member or AI
+ * @param {Function} props.onMove - Handler for keyboard movement
+ * @returns {JSX.Element} The rendered task card
+ */
+const TaskNode = memo(function TaskNode({ task, onMove }) {
+  /**
+   * Initializes the HTML5 drag operation.
+   * @param {DragEvent} e - The HTML drag start event
+   */
   const handleDragStart = (e) => {
     e.dataTransfer.setData('taskId', task.id);
+    // Accessibility: announce drag start if a live region is set up
   };
 
+  /**
+   * Enables moving the task to the next column using the Enter or Space key.
+   * @param {KeyboardEvent} e - The HTML keydown event
+   */
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -20,7 +48,7 @@ export default function TaskNode({ task, onMove }) {
       tabIndex={0}
       onKeyDown={handleKeyDown}
       role="button"
-      aria-label={`${task.title}. ${task.description}. Currently in ${task.status}. Press space to move to next status.`}
+      aria-label={`${task.title}. ${task.description}. Status: ${task.status}. Press space to move to next column.`}
     >
       <h3 className="task-title">{task.title}</h3>
       <p className="task-desc">{task.description}</p>
@@ -31,12 +59,26 @@ export default function TaskNode({ task, onMove }) {
       
       {/* Fallback for pure screen reader users without keyboard support on div */}
       <button 
-        style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}
+        className="sr-only"
         onClick={() => onMove(task.id)}
-        aria-label={`Move ${task.title} to next column`}
+        aria-label={`Move ${task.title} to next status`}
       >
         Move Task
       </button>
     </article>
   );
-}
+});
+
+TaskNode.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    effort: PropTypes.string,
+    assignee: PropTypes.string,
+  }).isRequired,
+  onMove: PropTypes.func.isRequired,
+};
+
+export default TaskNode;

@@ -7,15 +7,23 @@
   --primary-glow: #00ffcc;
   --secondary-glow: #7000ff;
   --text-primary: #ffffff;
-  --text-secondary: #a0a0b0;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --text-secondary: #e0e0e0; /* Increased contrast from #a0a0b0 */
+  --border-color: rgba(255, 255, 255, 0.15); /* Increased contrast */
   --glass-blur: blur(20px);
+  --focus-ring: 3px solid #00ffcc;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Universal high-contrast focus ring for accessibility */
+*:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 body {
