@@ -1,5 +1,6 @@
 import { useState, useCallback, useTransition } from 'react';
 import { INITIAL_TASKS, COLUMNS } from '../lib/constants';
+import { generateTaskId } from '../lib/performance';
 
 /**
  * Custom React Hook for Kanban state management.
@@ -46,7 +47,7 @@ export function useKanban() {
 
     const formattedTasks = newTasks.map(t => ({
       ...t,
-      id: `ai-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+      id: generateTaskId('ai'),
       status: 'todo',
       assignee: 'AI Generated'
     }));
