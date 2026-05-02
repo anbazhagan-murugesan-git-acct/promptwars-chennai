@@ -1,16 +1,9 @@
-import KanbanBoard from '../components/KanbanBoard';
+import AuraBoard from '../components/AuraBoard';
 
 export default function Home() {
   return (
-    <main className="app-container">
-      <header className="header">
-        <h1>TeamSync</h1>
-        <button className="btn" aria-label="Create new task">New Task</button>
-      </header>
-      
-      <section aria-label="Task Management Board">
-        <KanbanBoard />
-      </section>
-    </main>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+      <AuraBoard />
+    </div>
   );
 }
