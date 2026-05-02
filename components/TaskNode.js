@@ -41,7 +41,7 @@ const TaskNode = memo(function TaskNode({ task, onMove }) {
   };
 
   return (
-    <article 
+    <div 
       className="task-node"
       draggable="true"
       onDragStart={handleDragStart}
@@ -65,7 +65,7 @@ const TaskNode = memo(function TaskNode({ task, onMove }) {
       >
         Move Task
       </button>
-    </article>
+    </div>
   );
 });
 

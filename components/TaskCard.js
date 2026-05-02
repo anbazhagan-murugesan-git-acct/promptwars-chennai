@@ -7,7 +7,6 @@ export default function TaskCard({ task, onMove }) {
       draggable="true"
       aria-labelledby={`task-title-${task.id}`}
       aria-describedby={`task-desc-${task.id}`}
-      tabIndex={0}
       onDragStart={(e) => {
         e.dataTransfer.setData('taskId', task.id);
       }}

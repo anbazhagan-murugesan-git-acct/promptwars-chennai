@@ -24,7 +24,6 @@ const Column = memo(function Column({ column, tasks, onDrop, onMove }) {
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => onDrop(e, column.id)}
       aria-labelledby={`col-title-${column.id}`}
-      role="region"
     >
       <div className="column-header">
         <h2 id={`col-title-${column.id}`} className="column-title">
